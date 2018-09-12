@@ -11,20 +11,23 @@ public class Apply {
     private String IP;
     private String builtConfig;
 
-    public Apply() throws IOException {
-        Scanner in = new Scanner(new File("ConfigTemplate.txt"));
-
+    public Apply() {
+        // Cannot utilize Things that dont exsist yet
+    }
+    public void applyConfig() throws Exception {
+        Scanner in = new Scanner(new File("BaseIPList.txt"));
         while (in.hasNext()) {
-            info.add(in.next());
+            info.add(in.nextLine());
         }
         in.close();
+
         user = info.get(0);
         password = info.get(1);
         IP = info.get(2);
-        Build config = new Build();
-        builtConfig = config.newFile();
-    }
-    public void applyConfig() throws Exception {
+
+        Build startBuild = new Build();
+        builtConfig = startBuild.newFile();
+
         JSch ssh = new JSch();
 
         Session session = ssh.getSession(user, IP, PORT);

@@ -4,7 +4,18 @@ import java.util.*;
 public class Config {
 
     List<String> text = new ArrayList<>();
-    private static final String PATH = "ConfigTemplate.txt";
+    private static final String PATH = "DeviceInfo.txt";
+    private String username;
+    private String password;
+    private String mgmtDevice;
+    private String DNS1;
+    private String DNS2;
+    private String Syslog;
+    private String NTP1;
+    private String NTP2;
+    private String Auth1;
+    private String Auth2;
+    private String SNMP;
 
     public Config() throws IOException {
         PrintWriter pw = new PrintWriter(new FileWriter(PATH));
@@ -19,7 +30,7 @@ public class Config {
                 "NTP 2 IP:\n" +
                 "Authentication Server 1 IP:\n" +
                 "Authentication Server 2 IP:\n" +
-                "SNMP Server IP:\n\n");
+                "SNMP Server IP:\n");
         pw.close();
     }
     public void showConfig() throws IOException {
@@ -34,81 +45,67 @@ public class Config {
     public void editConfig()throws IOException {
         Scanner in = new Scanner(new File(PATH));
         PrintWriter pw = new PrintWriter(new FileWriter(PATH));
+        PrintWriter pw2 = new PrintWriter(new FileWriter("BaseIPList.txt"));
+
+        getData();
 
         while (in.hasNext()) {
             text.add(in.next());
         }
         in.close();
-        text.add("Username: " + getUsername());
-        text.add("Password: " + getPassword());
-        text.add("Device to Configure IP:  " + getDevice());
-        text.add("DNS 1 IP: " + getDNS1());
-        text.add("DNS 2 IP: " + getDNS2());
-        text.add("Syslog Server IP: " + getSyslog());
-        text.add("NTP 1 IP: " + getNTP1());
-        text.add("NTP 2 IP: " + getNTP2());
-        text.add("Authentication Server 1 IP: " + getAuth1());
-        text.add("Authentication Server 2 IP: " + getAuth2());
-        text.add("SNMP Server IP: " + getSNMP());
+
+        text.add("Username: " + username);
+        text.add("Password: " + password);
+        text.add("Device to Configure IP:  " + mgmtDevice);
+        text.add("DNS 1 IP: " + DNS1);
+        text.add("DNS 2 IP: " + DNS2);
+        text.add("Syslog Server IP: " + Syslog);
+        text.add("NTP 1 IP: " + NTP1);
+        text.add("NTP 2 IP: " + NTP2);
+        text.add("Authentication Server 1 IP: " + Auth1);
+        text.add("Authentication Server 2 IP: " + Auth2);
+        text.add("SNMP Server IP: " + SNMP);
 
         for (String temp : text) {
             pw.println(temp);
         }
+        pw2.print(username + "\n" +
+                password + "\n" +
+                mgmtDevice + "\n" +
+                DNS1 + "\n" +
+                DNS2 + "\n" +
+                Syslog + "\n" +
+                NTP1 + "\n" +
+                NTP2 + "\n" +
+                Auth1 + "\n" +
+                Auth2 + "\n" +
+                SNMP + "\n");
         pw.close();
+        pw2.close();
     }
-    private String getUsername() {
+    private void getData() {
         Scanner scan = new Scanner(System.in);
         System.out.print("Please Enter Username: ");
-        return scan.next();
-    }
-    private String getPassword() {
-        Scanner scan = new Scanner(System.in);
+        username = scan.next();
         System.out.print("Please Enter Password: ");
-        return scan.next();
-    }
-    private String getDevice() {
-        Scanner scan = new Scanner(System.in);
+        password = scan.next();
         System.out.print("Please Enter MGMT device IP: ");
-        return scan.next();
-    }
-    private String getDNS1() {
-        Scanner scan = new Scanner(System.in);
+        mgmtDevice = scan.next();
         System.out.print("Please Enter DNS 1: ");
-        return scan.next();
-    }
-    private String getDNS2() {
-        Scanner scan = new Scanner(System.in);
+        DNS1 = scan.next();
         System.out.print("Please Enter DNS 2: ");
-        return scan.next();
-    }
-    private String getSyslog() {
-        Scanner scan = new Scanner(System.in);
+        DNS2 = scan.next();
         System.out.print("Please Enter Syslog: ");
-        return scan.next();
-    }
-    private String getNTP1() {
-        Scanner scan = new Scanner(System.in);
+        Syslog = scan.next();
         System.out.print("Please Enter NTP 1: ");
-        return scan.next();
-    }
-    private String getNTP2() {
-        Scanner scan = new Scanner(System.in);
+        NTP1 = scan.next();
         System.out.print("Please Enter NTP 2: ");
-        return scan.next();
-    }
-    private String getAuth1() {
-        Scanner scan = new Scanner(System.in);
+        NTP2 = scan.next();
         System.out.print("Please Enter Auth 1: ");
-        return scan.next();
-    }
-    private String getAuth2() {
-        Scanner scan = new Scanner(System.in);
+        Auth1 = scan.next();
         System.out.print("Please Enter Auth 2: ");
-        return scan.next();
-    }
-    private String getSNMP() {
-        Scanner scan = new Scanner(System.in);
+        Auth2 = scan.next();
         System.out.print("Please Enter SNMP: ");
-        return scan.next();
+        SNMP = scan.next();
     }
 }

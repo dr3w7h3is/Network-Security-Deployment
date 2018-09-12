@@ -42,7 +42,6 @@ public class Build {
         pw.println("ntp server " + NTP1 + " " + "version 4");
         pw.println("ntp server " + NTP2 + " " + "version 4");
         pw.println("!");
-        /**
         pw.println("aaa new-model");
         pw.println("aaa authentication login CON local");
         pw.println("aaa authentication login DEFAULT local");
@@ -55,7 +54,6 @@ public class Build {
         pw.println("line vty 0 15");
         pw.println(" login authentication VTY");
         pw.println("!");
-         */
         pw.println("snmp-server view TestView Internet included");
         pw.println("snmp-server group TestGroup v3 priv Read TestView Write TestView");
         pw.println("snmp-server user TestUser TestGroup v3 auth SHA P@ssword priv AES P@ssword");
